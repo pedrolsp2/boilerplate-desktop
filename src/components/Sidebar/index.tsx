@@ -13,7 +13,7 @@ const SidebarContent: React.FC<SidebarContentProps> = ({ children }) => {
       <AppSidebar />
       <SidebarInset>
         <Header />
-        {children}
+        <div className="container p-2 mx-auto">{children}</div>
       </SidebarInset>
     </SidebarProvider>
   );

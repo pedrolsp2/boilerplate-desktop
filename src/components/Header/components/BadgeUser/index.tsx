@@ -3,7 +3,7 @@ import React from 'react';
 import { Store, useStoreBase } from '@/store';
 
 const stateSelector = (state: Store) => ({
-  user: state.user,
+  user: state.nome,
 });
 
 const BadgeUser: React.FC = () => {

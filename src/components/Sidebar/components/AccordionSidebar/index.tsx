@@ -17,8 +17,9 @@ import {
   SidebarMenuSubButton,
   SidebarMenuSubItem,
 } from '@/components/ui/sidebar';
+import { useNavigate } from 'react-router-dom';
 
-export function NavMain({
+export function AccordionSidebar({
   items,
 }: {
   items: {
@@ -32,6 +33,11 @@ export function NavMain({
     }[];
   }[];
 }) {
+  const navigate = useNavigate();
+
+  const goTo = (url: string) => {
+    navigate(url);
+  };
   return (
     <SidebarGroup>
       <SidebarGroupLabel>Platform</SidebarGroupLabel>
@@ -56,9 +62,12 @@ export function NavMain({
                   {item.items?.map((subItem) => (
                     <SidebarMenuSubItem key={subItem.title}>
                       <SidebarMenuSubButton asChild>
-                        <a href={subItem.url}>
+                        <div
+                          onClick={() => goTo(subItem.url)}
+                          className="cursor-pointer"
+                        >
                           <span>{subItem.title}</span>
-                        </a>
+                        </div>
                       </SidebarMenuSubButton>
                     </SidebarMenuSubItem>
                   ))}

@@ -1,10 +1,13 @@
 import instance from '..';
 import { getHeaders } from '@/api/utils';
 interface AuthenticateResponse {
-  nomeUsuario: string;
-  token: string;
-  cod_usuario: string;
-  matricula: string;
+  token: string | null;
+  cod_usuario: string | null;
+  matricula: string | null;
+  user: string | null;
+  nome: string | null;
+  email: string | null;
+  cod_filial: string | null;
 }
 
 interface ValidateResponse {

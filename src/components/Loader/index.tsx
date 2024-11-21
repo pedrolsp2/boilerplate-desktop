@@ -1,4 +1,4 @@
-import { Loader as Icon } from 'lucide-react';
+import { LoaderCircle } from 'lucide-react';
 import React from 'react';
 
 type LoaderProps =
@@ -14,7 +14,7 @@ type LoaderProps =
     };
 
 const Loading: React.FC = () => {
-  return <Icon className="animate-spin" />;
+  return <LoaderCircle className="animate-spin" />;
 };
 
 const Loader: React.FC<LoaderProps> = ({

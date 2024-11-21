@@ -1,4 +1,4 @@
-import { Outlet } from 'react-router-dom';
+import { Outlet, useNavigate } from 'react-router-dom';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { validateUserToken } from '@/api/auth/user';
 import { getItem } from '@/utils/storage';
@@ -19,6 +19,7 @@ const AppLayout = () => {
   const token = getItem(localStorage, 'token');
 
   const queryClient = useQueryClient();
+  const navigate = useNavigate();
 
   const { mutate, status } = useMutation({
     mutationFn: validateUserToken,
@@ -28,9 +29,7 @@ const AppLayout = () => {
       if (token) {
         login({
           token: token,
-          user: data.token.usuario.nome,
-          cod_usuario: String(data.token.usuario.cod_usuario),
-          matricula: data.token.usuario.matricula,
+          ...data.token.usuario,
         });
       }
     },
@@ -39,7 +38,7 @@ const AppLayout = () => {
       Toast({ variant: 'warning', content: 'Sua sessão terminou' });
       if (isAxiosError(err)) {
         if (err.response?.status === 401 || err.response?.status === 402) {
-          logout(queryClient);
+          logout(queryClient, navigate);
         }
       }
     },

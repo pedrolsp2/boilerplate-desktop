@@ -10,63 +10,32 @@ import {
   SocketContextProvider,
   SocketReducer,
 } from './SocketContext';
-import { ExternalToast } from 'sonner';
-import { isTablet } from 'react-device-detect';
-import { Store, useStoreBase } from '@/store';
-import { useQueryClient } from '@tanstack/react-query';
 import { getItem, setItem } from '@/utils/storage';
-import useSocketAlert from '@/components/SocketAlert';
-
-export interface ISocketContextComponentProps extends PropsWithChildren {}
+import { Store, useStoreBase } from '@/store';
 
 const stateSelector = (state: Store) => ({
+  nome: state.nome,
   matricula: state.matricula,
+  email: state.email,
   cod_usuario: state.cod_usuario,
+  cod_filial: state.cod_filial,
 });
+
+type ISocketContextComponentProps = PropsWithChildren;
 
 const SocketContextComponent: React.FunctionComponent<
   ISocketContextComponentProps
 > = (props) => {
+  const user = useStoreBase(stateSelector);
   const { children } = props;
-  const { matricula, cod_usuario } = useStoreBase(stateSelector);
-  const queryClient = useQueryClient();
-
-  const propsToast = (): ExternalToast => {
-    return isTablet
-      ? {
-          position: 'top-left',
-          style: {
-            color: '#707070',
-            background: '#fafafa',
-            width: '530px',
-            fontSize: 16,
-          },
-          duration: 10000,
-        }
-      : {
-          position: 'top-center',
-          style: {
-            color: '#707070',
-            background: '#fafafa',
-          },
-          duration: 10000,
-        };
-  };
-
-  const styleToast = propsToast();
-  const valoresPadros = {
-    cod_usuario,
-    matricula,
-    styleToast,
-  };
+  const token = getItem(localStorage, 'token');
 
   const socket = useSocket(import.meta.env.VITE_BUSINESS_SOCKET_BASE_URL, {
     reconnectionAttempts: 5,
     reconnectionDelay: 1000,
     autoConnect: false,
-    auth: { token: getItem(localStorage, 'token') },
+    auth: { token, user: { ...user, token } },
   });
-  useSocketAlert({ socket, queryClient, valoresPadros });
 
   const [SocketState, SocketDispatch] = useReducer(
     SocketReducer,

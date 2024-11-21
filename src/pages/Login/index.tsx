@@ -24,12 +24,7 @@ const Login = () => {
   const { mutate, status } = useMutation({
     mutationFn: authenticateUser,
     onSuccess: (data) => {
-      login({
-        token: data.token,
-        user: data.nomeUsuario,
-        cod_usuario: data.cod_usuario,
-        matricula: data.matricula,
-      });
+      login({ ...data });
       navigate('/');
     },
     onError: (err: AxiosError) => {

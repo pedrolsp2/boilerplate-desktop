@@ -1,12 +1,19 @@
 /** @type {import('tailwindcss').Config} */
 export default {
-  darkMode: ['class', '[data-mode="dark"]'],
-  content: ['./index.html', './src/**/*.{ts,tsx,js,jsx}'],
+  darkMode: ['class'],
+  content: [
+    './pages/**/*.{ts,tsx}',
+    './components/**/*.{ts,tsx}',
+    './app/**/*.{ts,tsx}',
+    './src/**/*.{ts,tsx}',
+    './src/**/*.css',
+  ],
   theme: {
     extend: {
       fontFamily: {
         lato: ['Poppins', 'sans-serif'],
       },
+      width: { 'table-open': 'calc(100vw - 17rem)' },
       colors: {
         background: 'hsl(var(--background))',
         foreground: 'hsl(var(--foreground))',
@@ -19,16 +26,16 @@ export default {
           foreground: 'hsl(var(--popover-foreground))',
         },
         primary: {
-          foreground: '#d3f3df',
           100: '#d3f3df',
           200: '#a7e8bf',
           300: '#7adc9e',
           400: '#4ed17e',
-          DEFAULT: '#22c55e',
           600: '#1b9e4b',
           700: '#147638',
           800: '#0e4f26',
           900: '#072713',
+          foreground: '#d3f3df',
+          DEFAULT: '#22c55e',
         },
         secondary: {
           DEFAULT: 'hsl(var(--secondary))',
@@ -50,14 +57,14 @@ export default {
         input: 'hsl(var(--input))',
         ring: 'hsl(var(--ring))',
         sidebar: {
-          DEFAULT: '#171717',
-          foreground: '#fff',
-          primary: '#262626',
-          'primary-foreground': '#fafafa',
-          accent: '#262626',
-          'accent-foreground': '#fff',
-          border: '#262626',
-          ring: '#fafafa',
+          DEFAULT: 'hsl(var(--sidebar-background))',
+          foreground: 'hsl(var(--sidebar-foreground))',
+          primary: 'hsl(var(--sidebar-primary))',
+          'primary-foreground': 'hsl(var(--sidebar-primary-foreground))',
+          accent: 'hsl(var(--sidebar-accent))',
+          'accent-foreground': 'hsl(var(--sidebar-accent-foreground))',
+          border: 'hsl(var(--sidebar-border))',
+          ring: 'hsl(var(--sidebar-ring))',
         },
       },
     },
